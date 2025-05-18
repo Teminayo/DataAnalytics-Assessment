@@ -88,7 +88,7 @@ This repository contains SQL solutions for a Data Analyst assessment involving r
 - Some fields such as `name` existed as ‘null’ and had to be constructed from `first_name` and `last_name`.
 - Mismatched IDs across tables occasionally led to empty outputs; corrected by checking foreign key references.
 - Ensured NULL-safe operations when dealing with calculations to avoid runtime errors.
-
+- One of the key challenges I encountered was generating a custom owners_id that started from 1001 and ensured uniqueness, especially when joining multiple tables (users, plans, savings accounts).Initially, I used ROW_NUMBER() OVER (ORDER BY u.id) directly in a subquery. However, this led to inconsistencies due to row duplications caused by LEFT JOINs — especially when users had multiple savings or investment records. This affected the row numbering and introduced duplicate owners_ids in the final output.I fixed it by extracting the column names in subqueries before joining them with the users_customuser table.This allowed me to return a clean, ranked list of users based on total_deposits, with consistent and duplicate-free owners_ids.
 ---
 
 ## Notes
